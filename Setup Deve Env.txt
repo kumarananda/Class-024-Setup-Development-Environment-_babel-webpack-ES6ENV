@@ -1,0 +1,120 @@
+Setup Development Environment 
+
+ES6+ Env Setup ( webpack & babel )
+For better developer experience 
+Cross browser support and compatibility 
+Fast & professional code experience 
+Use modern syntax 
+
+Webpack 
+Webpack is a module bundler 
+It builds your apps dependency graph 
+Create a modules bundle  
+Bundle your assets, scripts, images , styles 
+
+Babel 
+Babel is a JavaScript Compiler 
+Use next generation JS today 
+Don't worry, babel will convert it to a vanilla Js code for all browser support. 
+Babel is also called transpiler  
+
+
+
+
+
+
+Setup Environment  
+First create a project ( Folder ) for your apps 
+Initialize npm through it 
+npm init 
+
+
+Or if you skip npm init setup 
+npm init  -y 
+
+Now install webpack and babel 
+npm install babel-core   --save-dev
+npm install babel-loader   --save-dev
+npm install babel-preset-env   --save-dev
+
+npm install webpack   --save-dev
+npm install webpack-cli   --save-dev
+
+
+Now create a entry js file for your apps in src folder 
+app.js / index.js 
+
+
+Now create a output file for your apps  in dist folder 
+app.bundle.js / index.bundle.js 
+
+
+
+
+
+Babel Setup 
+Create a .babelrc file in root apps 
+.babelrc 
+
+
+
+Now set reset in rc file 
+{
+    “preset”    : [ “babel-preset-env” ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Webpack configuration 
+Create a webpack.config.js file in root patch 
+Now set configuration in this file 
+
+const path = require(‘path’);
+
+Module.exports = { 
+    mode : ‘development’,
+    entry  : ‘./src/app.js’,
+    output : {
+        path : path.resolve(__dirname, ‘dist’),
+        filename : ‘app.bundle.js’
+    },
+    module : { 
+        rules : [
+            {
+                test : /\.js$/,
+                exclude : /(node_modules)/,
+                loader : ‘babel-loader’
+            }
+        ]
+    }
+
+}
+
+
+Build Scripts 
+Open package.json file 
+Type a new scripts for webpack into scripts 
+“build” : “webpack --watch”
+
+
+
+Run Environment 
+Now just hit 
+npm run build 
+
+
+
