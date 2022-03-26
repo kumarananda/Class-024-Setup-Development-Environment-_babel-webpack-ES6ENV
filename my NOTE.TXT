@@ -1,30 +1,45 @@
-1 > create a package.json file manualy
+1 > create a package.json file manualy >> see below for details npm init // we directly use note 2 >> npm init -y
 2 > create a package.json file defulte structurely ( cmd " npm init -y) we will get a defulte structure
   ::: if use -y cmd & we creat a advance project befor upload this project - we make sure currect all description on json
 3 > now we create a src folder & we creat a app.js or index.js (react use index.js) file  under src folder or under main project folder & ( app.js/index.js under src folder is stenderd way  ) || app.js or index.js is our main folder.
+4 > npm install babel-core   --save-dev
+5 > npm install babel-loader   --save-dev
+6 > npm install babel-preset-env   --save-dev
+
+7 > npm install webpack   --save-dev
+8 > npm install webpack-cli   --save-dev
+
+config
+9  > babel config >> create a file as ".babelrc" on project folder
+
+10 > webpack config >> create a file as "webpack.config.js" on project folder
+
+11 > set this run cmd as below on "package.json" file
+"scripts": {
+    "start": "webpack --watch"
+  }, 
+
+12 >> 
+  run this project with cmd terminal as below
+  npm run start (cmd)
+  // "start" is a cmd name as we set under "script" keyword on package.json file
+
+13 >> for stop this runed project
+  press control(ctrl) + c button on pc keybord   
 
 
-4 > 
- >> Now install webpack and babel 
- if we use only 
- cmd "npm install babel-core"
- then we get dependencies as below 
- "dependencies": {
-    "babel-core": "^6.26.3"
-  } // dependencies will send to production
-  but if we use cmd "npm install babel-core   --save-dev",
-  then we get devDependencies as below 
-    "devDependencies": {
-    "babel-core": "^6.26.3"
-  } // devDependencies for only developers
+14 ( ***
+**** now "babel & webpack" setup is complit
+**** we can upload our "babel & webpack" on github for future use > but
+**** but it's befor we can delete some file & folder for avoideing lerger size of file as below
+**** folder > node_modules, dist
+**** package-lock.json, 
+**** and all deleted file & folder will back when we 
+**** use cmd >> "npm install"
+**** extra note .txt file for note or directions perpous )
+**** when i use cmd npm install than all file will back
 
-
-npm install babel-core   --save-dev
-npm install babel-loader   --save-dev
-npm install babel-preset-env   --save-dev
-
-npm install webpack   --save-dev
-npm install webpack-cli   --save-dev
+>> see below for all details
 
 1 >> create a package.json file manualy
 1.1, comand for npm insilizion
@@ -36,9 +51,9 @@ npm install webpack-cli   --save-dev
   "version": "1.0.0",
   "description": "This is a test project",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-    },
+    "scripts": {
+    "start": "webpack --watch"
+  }, // cmd run key script (npm run start)
   "author": "Ananda",
   "license": "MIT"
   }
@@ -57,9 +72,122 @@ npm install webpack-cli   --save-dev
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+    "start": "webpack --watch"
+  }, // cmd run key script (npm run start)
   "keywords": [],
   "author": "",
   "license": "ISC"
 }
+
+
+3 >> 
+  now we create a src folder & we creat a app.js 
+  or index.js (react use index.js) file  under 
+  src folder or under main project folder 
+  & ( app.js/index.js under src folder is stenderd way  ) 
+  || app.js or index.js is our main folder.
+
+
+4 >>  
+  Now install webpack and babel  cmd= "npm install babel-core   --save-dev"
+  if we use only 
+  cmd "npm install babel-core"
+  then we get dependencies as below 
+  "dependencies": {
+      "babel-core": "^6.26.3"
+    } // dependencies (build)  will send to production
+    but if we use cmd "npm install babel-core   --save-dev",
+    then we get devDependencies as below 
+      "devDependencies": {
+      "babel-core": "^6.26.3"
+    } // devDependencies (production) for only developers
+
+5 >> npm install babel-loader   --save-dev
+  *** changes
+    "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.4" //install changes
+  }
+
+6 >> npm install babel-preset-env   --save-dev
+    "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.4",
+    "babel-preset-env": "^1.7.0" //install changes
+  }
+
+7 >> npm install webpack   --save-dev
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.4",
+    "babel-preset-env": "^1.7.0",
+    "webpack": "^5.70.0" //install changes
+  }
+
+8 >> npm install webpack-cli   --save-dev
+
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.4",
+    "babel-preset-env": "^1.7.0",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2" //install changes
+  }
+
+
+9  >> babel config 
+  >> create a file as ".babelrc" on project folder
+  and type as below on ".babelrc" file
+    {
+    "presets": ["babel-preset-env"]
+  }    // next time we use more preset
+
+10 >> webpack config 
+  >> create a file as "webpack.config.js" on project folder
+  and type as below on "webpack.config.js" file
+  const { dirname } = require('path');
+const path = require('path') // node js defult key
+
+module.exports = {
+    mode : "development",
+    entry : './src/app.js',
+    output : { 
+        path : path.resolve(__dirname, 'dist'),
+        filename : 'app.bundle.js'
+
+    },  // we will can use components, context, redux
+    module : {
+        rules : [
+            {
+                test : /\.js$/, // webpack will test/ this (.js) type of file 
+                exclude : /(node_modules)/, // avoide this folder for test
+                loader : 'babel-loader'
+            }
+        ]
+
+    }
+
+  }
+
+11 >>
+  11 > set this run cmd as below on "package.json" file
+  "scripts": {
+    "start": "webpack --watch"
+  }, 
+
+12 >> 
+  run this project with cmd terminal as below
+  npm run start (cmd)
+  // "start" is a cmd name as we set under "script" keyword on package.json file
+
+
+13 >> for stop this runed project
+  press control(ctrl) + c button on pc keybord  
+
+14( ***
+  **** now "babel & webpack" setup is complit
+  **** we can upload our "babel & webpack" on github for future use > but
+  **** but it's befor we can delete some file & folder for avoideing lerger size of file as below
+  **** folder > node_modules, dist
+  **** package-lock.json, 
+  **** extra note .txt file for note or directions perpous )

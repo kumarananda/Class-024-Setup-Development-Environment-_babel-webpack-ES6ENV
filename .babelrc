@@ -1,0 +1,4 @@
+{
+    "presets": ["babel-preset-env"]
+}
+// next time we use more preset
